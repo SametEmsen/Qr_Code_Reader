@@ -11,9 +11,9 @@ import utils.ConfigurationReader;
 
 import java.io.IOException;
 
-public class BacodeReader extends TestBase{
+public class QrCodeReader extends TestBase{
     @Test
-    public void barcodeReaderTest() throws NotFoundException, IOException {
+    public void qrCodeReaderTest() throws NotFoundException, IOException {
         //gets the url from properties file
         driver.get(ConfigurationReader.get("url"));
 
