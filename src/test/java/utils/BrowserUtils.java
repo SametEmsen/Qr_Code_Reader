@@ -63,14 +63,16 @@ public class BrowserUtils {
      */
     public static String qrCodeeReader(String qrCodeUrl) throws IOException, NotFoundException {
 
+        //puts qr codes url into URL object
         URL url=new URL(qrCodeUrl);
 
+        //// Retrieve the QR code image
         BufferedImage bufferedImage= ImageIO.read(url);
-
         LuminanceSource luminanceSource=new BufferedImageLuminanceSource(bufferedImage);
-
+        //converts to image to binaryBitmap
         BinaryBitmap binaryBitmap=new BinaryBitmap(new HybridBinarizer(luminanceSource));
 
+        //decode the binary
         Result result= new MultiFormatReader().decode(binaryBitmap);
 
         return result.getText();

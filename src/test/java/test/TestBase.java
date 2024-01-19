@@ -18,6 +18,7 @@ public class TestBase {
     protected WebDriver driver;
     protected WebDriverWait wait;
     protected ExtentTest extentLogger;
+
     @BeforeMethod
     public void setUp() {
         driver = Driver.get();
@@ -28,15 +29,15 @@ public class TestBase {
 
     @AfterMethod
     public void tearDown(ITestResult result) throws IOException {
-// name the screenshot with the current date time to avoid duplicate name
+        //if Test fails
         if (result.getStatus() == ITestResult.FAILURE) {
-// TakesScreenshot ---> interface from selenium which takes screenshots
+            //Record the name of the failed test
             extentLogger.fail(result.getName());
-//   ((TakesScreenshot)Driver.get()).getScreenshotAs(OutputType.FILE);
+            //Take the screenshot and return the location of screenshot
             String screenShotPath = BrowserUtils.getScreenshot(result.getName());
-// full path to the screenshot location
+            //Add the screenshot to the report
             extentLogger.addScreenCaptureFromPath(screenShotPath);
-            // save the screenshot to the path given
+            //Capture the exception and put inside the report
             extentLogger.fail(result.getThrowable());
         }
         Driver.closeDriver();
